@@ -1,0 +1,53 @@
+@use '@/styles/typography' as Typography;
+@use '@/styles/colors' as Colors;
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid Colors.$color-border-light;
+  border-radius: 1.5rem;
+  padding: 0.5rem 0.75rem;
+  box-shadow: 0 9px 9px 0px rgba(0, 0, 0, 0.01),
+    0 2px 5px 0px rgba(0, 0, 0, 0.06);
+
+  .promptTextarea {
+    position: relative;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    outline-width: 0;
+    word-wrap: break-word;
+    margin-top: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+
+    .submitButton {
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: Colors.$color-surface-black;
+      border: none;
+      border-radius: 50%;
+
+      &:hover {
+        background-color: Colors.$color-surface-gray-800;
+      }
+
+      &:disabled {
+        cursor: inherit;
+        background-color: Colors.$color-surface-gray-400;
+      }
+    }
+  }
+}

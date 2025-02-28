@@ -1,2 +1,24 @@
 @use '@/styles/typography' as Typography;
 @use '@/styles/colors' as Colors;
+
+.main {
+  position: relative;
+  max-width: 48rem;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: Colors.$color-surface-white;
+  border-radius: 20px;
+
+  .formWrapper {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+
+    .notice {
+      @include Typography.xs-regular;
+      color: Colors.$color-font-gray-500;
+      padding: 0.5rem 60px;
+      text-align: center;
+    }
+  }
+}
