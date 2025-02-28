@@ -1,0 +1,21 @@
+@use '@/styles/typography' as Typography;
+@use '@/styles/colors' as Colors;
+
+.container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.25rem 0;
+
+  .wrapper {
+    max-width: 48rem;
+    background: Colors.$color-surface-gray-100;
+    border-radius: 1.5rem;
+    padding: 0.625rem 1.25rem;
+
+    .text {
+      line-height: 1.5rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  }
+}
