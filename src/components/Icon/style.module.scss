@@ -1,0 +1,23 @@
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--icon-width, 24px);
+  height: var(--icon-height, 24px);
+
+  &.strokeColor svg {
+    path,
+    circle {
+      stroke: var(--icon-stroke-color);
+    }
+  }
+
+  &.fillColor svg path {
+    fill: var(--icon-stroke-color);
+  }
+
+  svg {
+    width: var(--icon-width, 24px);
+    height: var(--icon-height, 24px);
+  }
+}

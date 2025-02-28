@@ -1,12 +1,40 @@
 $typography-size-map: (
-  'h1': 56px,
-  'h2': 48px,
-  'h3': 36px,
-  'h4': 32px,
-  'h5': 24px,
-  'h6': 20px,
-  'h7': 16px,
-  'body14': 14px,
-  'sm': 12px,
-  'xsm': 11px,
+  'xs': 0.75rem,
 );
+
+@mixin Typography(
+  $font-family,
+  $size,
+  $weight,
+  $line-height,
+  $letter-spacing,
+  $text-align
+) {
+  font-family: $font-family;
+  font-size: map-get($typography-size-map, $size);
+  font-weight: $weight;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+  text-align: $text-align;
+}
+
+@mixin Typography-kr(
+  $size,
+  $weight,
+  $line-height,
+  $letter-spacing,
+  $text-align
+) {
+  @include Typography(
+    var(--font-Noto-Sans-KR),
+    $size,
+    $weight,
+    $line-height,
+    $letter-spacing,
+    $text-align
+  );
+}
+
+@mixin xs-regular {
+  @include Typography-kr('xs', 400, 1rem, 0, left);
+}
