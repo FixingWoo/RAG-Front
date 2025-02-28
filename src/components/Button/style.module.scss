@@ -1,0 +1,15 @@
+@use '@/styles/colors' as Colors;
+
+.button {
+  width: var(--width, auto);
+  height: var(--height, auto);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 12px;
+  border-radius: 4px;
+}
