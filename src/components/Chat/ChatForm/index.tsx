@@ -33,19 +33,16 @@ const Textarea = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
       {!question && <Placeholder text={'무엇이든 물어보세요.'} />}
 
       <div className={styles.wrapper}>
+        <Button variant={ButtonVariant.BTN_36_PRIMARY}>초기화</Button>
+
         <Button
-          className={styles.submitButton}
-          variant={ButtonVariant.CUSTOM}
+          variant={ButtonVariant.BTN_36_SECONDARY}
           width={'36px'}
           height={'36px'}
           disabled={!question || question === '<br>'}
           onClick={() => console.log(question)}
         >
-          <Icon
-            name={IconName.ARROW_UP}
-            strokeColor={'white'}
-            fillColor={'white'}
-          />
+          <Icon name={IconName.ARROW_UP} />
         </Button>
       </div>
     </div>

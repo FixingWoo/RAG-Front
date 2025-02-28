@@ -24,7 +24,7 @@
   .wrapper {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
@@ -46,7 +46,7 @@
 
       &:disabled {
         cursor: inherit;
-        background-color: Colors.$color-surface-gray-400;
+        background-color: Colors.$color-surface-gray-500;
       }
     }
   }

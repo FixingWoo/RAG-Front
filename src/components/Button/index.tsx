@@ -4,6 +4,8 @@ import styles from './style.module.scss';
 
 export enum ButtonVariant {
   CUSTOM = 'custom',
+  BTN_36_PRIMARY = 'btn-36-primary',
+  BTN_36_SECONDARY = 'btn-36-secondary',
 }
 
 interface IButtonProps<T extends ElementType = 'button'> {
@@ -36,6 +38,8 @@ const Button: React.FC<IButtonProps> = ({
   const _className = cn(
     {
       [styles.button]: variant !== ButtonVariant.CUSTOM,
+      [styles.btn36Primary]: variant === ButtonVariant.BTN_36_PRIMARY,
+      [styles.btn36Secondary]: variant === ButtonVariant.BTN_36_SECONDARY,
     },
     className
   );
