@@ -29,26 +29,5 @@
     width: 100%;
     margin-top: 1.25rem;
     margin-bottom: 0.5rem;
-
-    .submitButton {
-      width: 36px;
-      height: 36px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: Colors.$color-surface-black;
-      border: none;
-      border-radius: 50%;
-
-      &:hover {
-        background-color: Colors.$color-surface-gray-800;
-      }
-
-      &:disabled {
-        cursor: inherit;
-        background-color: Colors.$color-surface-gray-500;
-      }
-    }
   }
 }
