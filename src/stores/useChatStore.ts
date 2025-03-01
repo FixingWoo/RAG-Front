@@ -25,8 +25,6 @@ export const useChatStore = create<IChatStore>((set, get) => ({
     set({ question });
   },
   setChats: (chat: Chat) => {
-    console.log(chat);
-
     const currentChats = get().chats;
     set({ chats: [...currentChats, chat] });
   },
