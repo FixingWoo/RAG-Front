@@ -1,0 +1,18 @@
+@use '@/styles/typography' as Typography;
+@use '@/styles/colors' as Colors;
+
+.placeholder {
+  position: absolute;
+  left: 20px;
+  top: 18px;
+  pointer-events: none;
+  user-select: none;
+
+  &:empty::before {
+    color: Colors.$color-font-gray-400;
+    content: attr(data-placeholder);
+    cursor: text;
+    pointer-events: none;
+    position: relative;
+  }
+}

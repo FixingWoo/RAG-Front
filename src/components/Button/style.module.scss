@@ -1,0 +1,56 @@
+@use '@/styles/typography' as Typography;
+@use '@/styles/colors' as Colors;
+
+.button {
+  width: var(--width, auto);
+  height: var(--height, auto);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  padding: 0.5rem;
+
+  &:disabled {
+    cursor: default;
+  }
+
+  @mixin ButtonPrimary {
+    border: 1px solid Colors.$color-border-light;
+    color: Colors.$color-font-gray-700;
+    background: Colors.$color-surface-white;
+
+    &:hover {
+      background: Colors.$color-surface-gray-100;
+    }
+  }
+
+  @mixin ButtonSecondary {
+    color: Colors.$color-font-white;
+    background: Colors.$color-surface-black;
+
+    &:hover {
+      background: Colors.$color-surface-gray-800;
+    }
+
+    &:disabled {
+      background: Colors.$color-surface-gray-500;
+    }
+  }
+
+  &.btn36Primary {
+    @include ButtonPrimary;
+  }
+
+  &.btn36Secondary {
+    @include ButtonSecondary;
+  }
+
+  &.btn36Primary,
+  &.btn36Secondary {
+    min-height: 36px;
+  }
+}
