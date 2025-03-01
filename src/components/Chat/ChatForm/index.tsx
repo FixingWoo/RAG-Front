@@ -11,10 +11,24 @@ import Placeholder from '@/components/Placeholder';
 import { useChatStore } from '@/stores';
 
 const Textarea = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
-  const { question, setQuestion } = useChatStore();
+  const { question, setQuestion, setChats } = useChatStore();
 
   const handleChange = (e: ContentEditableEvent) => {
     setQuestion(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    setChats({ type: 'User', text: question });
+    setQuestion('');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+
+      setChats({ type: 'User', text: useChatStore.getState().question });
+      setQuestion('');
+    }
   };
 
   return (
@@ -27,6 +41,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
         className={styles.promptTextarea}
         html={question}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         tagName={'div'}
       />
 
@@ -40,7 +55,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
           width={'36px'}
           height={'36px'}
           disabled={!question || question === '<br>'}
-          onClick={() => console.log(question)}
+          onClick={handleSubmit}
         >
           <Icon name={IconName.ARROW_UP} />
         </Button>

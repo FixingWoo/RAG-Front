@@ -3,12 +3,14 @@
 import React from 'react';
 import styles from './style.module.scss';
 
+import ChatContent from '@/components/Chat/ChatContent';
 import ChatForm from '@/components/Chat/ChatForm';
 
 export default function Home() {
   return (
     <>
       <main className={styles.main}>
+        <ChatContent />
         <div className={styles.formWrapper}>
           <ChatForm />
           <div className={styles.notice}>
