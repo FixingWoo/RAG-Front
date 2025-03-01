@@ -17,7 +17,8 @@
     "react-contenteditable": "^3.3.7",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.53.0",
-    "zustand": "^5.0.1"
+    "zustand": "^5.0.1",
+    "axios": "^1.7.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
