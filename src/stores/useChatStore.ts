@@ -16,6 +16,7 @@ interface IChatStore {
 
   setQuestion: (question: string) => void;
   setChats: (chat: Chat) => void;
+  clearChats: () => void;
 }
 
 export const useChatStore = create<IChatStore>((set, get) => ({
@@ -27,5 +28,8 @@ export const useChatStore = create<IChatStore>((set, get) => ({
   setChats: (chat: Chat) => {
     const currentChats = get().chats;
     set({ chats: [...currentChats, chat] });
+  },
+  clearChats: () => {
+    set({ chats: [] });
   },
 }));

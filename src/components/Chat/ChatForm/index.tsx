@@ -11,7 +11,7 @@ import Placeholder from '@/components/Placeholder';
 import { useChatStore } from '@/stores';
 
 const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
-  const { question, setQuestion, setChats } = useChatStore();
+  const { question, setQuestion, setChats, clearChats } = useChatStore();
 
   const handleChange = (e: ContentEditableEvent) => {
     setQuestion(e.target.value);
@@ -53,7 +53,9 @@ const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
       {!question && <Placeholder text={'무엇이든 물어보세요.'} />}
 
       <div className={styles.wrapper}>
-        <Button variant={ButtonVariant.BTN_36_PRIMARY}>초기화</Button>
+        <Button variant={ButtonVariant.BTN_36_PRIMARY} onClick={clearChats}>
+          초기화
+        </Button>
 
         <Button
           variant={ButtonVariant.BTN_36_SECONDARY}
