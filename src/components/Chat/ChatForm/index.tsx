@@ -10,7 +10,7 @@ import Placeholder from '@/components/Placeholder';
 
 import { useChatStore } from '@/stores';
 
-const Textarea = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
+const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
   const { question, setQuestion, setChats } = useChatStore();
 
   const handleChange = (e: ContentEditableEvent) => {
@@ -18,15 +18,20 @@ const Textarea = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
   };
 
   const handleSubmit = () => {
+    if (!question) return;
+
     setChats({ type: 'User', text: question });
     setQuestion('');
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
-      e.preventDefault();
+      const question = useChatStore.getState().question;
 
-      setChats({ type: 'User', text: useChatStore.getState().question });
+      e.preventDefault();
+      if (!question) return;
+
+      setChats({ type: 'User', text: question });
       setQuestion('');
     }
   };
@@ -64,6 +69,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
   );
 });
 
-Textarea.displayName = 'Textarea';
+ChatForm.displayName = 'ChatForm';
 
-export default Textarea;
+export default ChatForm;
