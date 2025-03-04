@@ -18,21 +18,38 @@ export const chat = async (question: string) => {
     }
   );
 
-  // ✅ STEP2. 답변 Append
+  // ✅ STEP2. 초기 AI 메시지 추가
   setChats({ type: 'AI', status: 'Pending', text: '' });
 
   // ✅ STEP3. Stream 파싱
   const reader = response.data.getReader();
   const decoder = new TextDecoder();
+  let streamBuffer = '';
 
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
 
     const chunk = decoder.decode(value, { stream: true });
-    const row = JSON.parse(chunk);
+    streamBuffer += chunk;
 
-    // ✅ STEP4. 답변 내용 Append
-    updateChats(row['answer']);
+    let startIdx = 0;
+
+    while (true) {
+      const endIdx = streamBuffer.indexOf('}', startIdx);
+      if (endIdx === -1) break;
+
+      const jsonStr = streamBuffer.slice(startIdx, endIdx + 1);
+      try {
+        const row = JSON.parse(jsonStr);
+        updateChats(row['answer']);
+      } catch (error) {
+        console.error('JSON parsing error:', error);
+      }
+
+      startIdx = endIdx + 1;
+    }
+
+    streamBuffer = streamBuffer.slice(startIdx);
   }
 };
