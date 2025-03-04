@@ -9,6 +9,7 @@ import VisuallyHidden from '@/components/VisuallyHidden';
 import Placeholder from '@/components/Placeholder';
 
 import { useChatStore } from '@/stores';
+import { chat } from '@/apis';
 
 const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
   const { question, setQuestion, setChats, clearChats } = useChatStore();
@@ -17,22 +18,34 @@ const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
     setQuestion(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!question) return;
 
-    setChats({ type: 'User', text: question });
-    setQuestion('');
+    try {
+      setQuestion('');
+      setChats({ type: 'User', text: question });
+
+      await chat(question);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = async (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
-      const question = useChatStore.getState().question;
-
       e.preventDefault();
+
+      const question = useChatStore.getState().question;
       if (!question) return;
 
-      setChats({ type: 'User', text: question });
-      setQuestion('');
+      try {
+        setChats({ type: 'User', text: question });
+        setQuestion('');
+
+        await chat(question);
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
