@@ -1,0 +1,14 @@
+@use '@/styles/typography' as Typography;
+@use '@/styles/colors' as Colors;
+
+.container {
+  display: flex;
+  padding: 1.25rem 0;
+
+  .wrapper {
+    padding: 0.625rem 1.25rem;
+    line-height: 1.5rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+}
