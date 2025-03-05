@@ -3,7 +3,7 @@ import { useChatStore } from '@/stores';
 
 export const chat = async (question: string) => {
   const setChats = useChatStore.getState().setChats;
-  const updateChats = useChatStore.getState().updateChats;
+  const updateLastChats = useChatStore.getState().updateLastChats;
 
   // ✅ STEP1. API 호출
   const response = await axiosClient.post(
@@ -28,7 +28,10 @@ export const chat = async (question: string) => {
 
   while (true) {
     const { done, value } = await reader.read();
-    if (done) break;
+    if (done) {
+      updateLastChats('', 'Done');
+      break;
+    }
 
     const chunk = decoder.decode(value, { stream: true });
     streamBuffer += chunk;
@@ -42,7 +45,7 @@ export const chat = async (question: string) => {
       const jsonStr = streamBuffer.slice(startIdx, endIdx + 1);
       try {
         const row = JSON.parse(jsonStr);
-        updateChats(row['answer']);
+        updateLastChats(row['answer'], 'Process');
       } catch (error) {
         console.error('JSON parsing error:', error);
       }
