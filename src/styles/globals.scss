@@ -23,6 +23,10 @@ body {
 }
 
 a {
-  color: inherit;
+  color: Colors.$link;
   text-decoration: none;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
