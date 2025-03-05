@@ -5,6 +5,7 @@ import styles from './style.module.scss';
 
 import UserMessage from '@/components/Chat/UserMessage';
 import BotMessage from '@/components/Chat/BotMessage';
+import Loading from '@/components/Loading';
 
 import { useChatStore } from '@/stores';
 
@@ -17,7 +18,13 @@ const ChatContent: React.FC = () => {
         chat.type === 'User' ? (
           <UserMessage key={index} text={chat.text} />
         ) : (
-          <BotMessage key={index} text={chat.text} />
+          <>
+            {chat.status === 'Pending' && <Loading />}
+
+            {(chat.status === 'Process' || chat.status === 'Done') && (
+              <BotMessage key={index} text={chat.text} />
+            )}
+          </>
         )
       )}
     </div>

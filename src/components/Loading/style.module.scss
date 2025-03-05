@@ -1,0 +1,19 @@
+@use '@/styles/colors' as Colors;
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.8);
+  }
+}
+
+.container {
+  width: 1rem;
+  height: 1rem;
+  background: Colors.$color-surface-black;
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
