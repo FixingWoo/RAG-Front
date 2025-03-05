@@ -2,26 +2,55 @@ import React from 'react';
 import styles from './style.module.scss';
 
 import MarkdownView from '@/components/Chat/Markdown';
+import Button, { ButtonVariant } from '@/components/Button';
+import Icon, { IconName } from '@/components/Icon';
+
+import { useToggleWithDelay } from '@/hooks';
+import { copyClipboard } from '@/utils';
 
 interface IProps {
   text: string;
 }
 
 const AiMessage: React.FC<IProps> = ({ text }) => {
-  const handleCopy = (e: React.ClipboardEvent) => {
+  const [isCopied, toggle] = useToggleWithDelay(false, 2000);
+
+  const handleDragCopy = (e: React.ClipboardEvent) => {
     e.preventDefault();
 
     const selection = window.getSelection();
     if (!selection) return;
 
-    const selectedText = selection.toString(); // HTML 태그 없이 텍스트만 복사
+    const selectedText = selection.toString();
     navigator.clipboard.writeText(selectedText);
   };
 
+  const handleClickCopy = (text: string) => {
+    copyClipboard(text);
+    toggle();
+  };
+
   return (
-    <div className={styles.container} onCopy={handleCopy}>
-      <div className={styles.wrapper}>
+    <div className={styles.container} onCopy={handleDragCopy}>
+      <div className={styles.textWrapper}>
         <MarkdownView text={text} />
+      </div>
+      <div className={styles.buttonWrapper}>
+        {isCopied ? (
+          <Button className={styles.button} variant={ButtonVariant.CUSTOM}>
+            <Icon name={IconName.CHECK} size={30} />
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              handleClickCopy(text);
+            }}
+            className={styles.button}
+            variant={ButtonVariant.CUSTOM}
+          >
+            <Icon name={IconName.COPY} size={30} />
+          </Button>
+        )}
       </div>
     </div>
   );
