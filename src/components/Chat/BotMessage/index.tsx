@@ -38,7 +38,7 @@ const BotMessage: React.FC<IProps> = ({ text }) => {
         <MarkdownView text={text} />
       </div>
 
-      {getLastChat().status === 'Done' && (
+      {getLastChat() && getLastChat().status === 'Done' && (
         <div className={styles.buttonWrapper}>
           {isCopied ? (
             <Button
