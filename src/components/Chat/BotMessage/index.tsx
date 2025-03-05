@@ -12,7 +12,7 @@ interface IProps {
   text: string;
 }
 
-const AiMessage: React.FC<IProps> = ({ text }) => {
+const BotMessage: React.FC<IProps> = ({ text }) => {
   const [isCopied, toggle] = useToggleWithDelay(false, 2000);
 
   const handleDragCopy = (e: React.ClipboardEvent) => {
@@ -61,4 +61,4 @@ const AiMessage: React.FC<IProps> = ({ text }) => {
   );
 };
 
-export default AiMessage;
+export default BotMessage;
