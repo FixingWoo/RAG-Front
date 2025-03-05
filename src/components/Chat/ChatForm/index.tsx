@@ -8,10 +8,11 @@ import Icon, { IconName } from '@/components/Icon';
 import VisuallyHidden from '@/components/VisuallyHidden';
 import Placeholder from '@/components/Placeholder';
 
-import { useChatStore } from '@/stores';
+import { useChatStore, useAbortControllerStore } from '@/stores';
 import { chat } from '@/apis';
 
 const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
+  const { abortRequest } = useAbortControllerStore();
   const { question, setQuestion, setChats, clearChats, getLastChat } =
     useChatStore();
 
@@ -67,15 +68,28 @@ const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
           초기화
         </Button>
 
-        <Button
-          variant={ButtonVariant.BTN_36_SECONDARY}
-          width={'36px'}
-          height={'36px'}
-          disabled={!question || question === '<br>'}
-          onClick={handleSubmit}
-        >
-          <Icon name={IconName.ARROW_UP} />
-        </Button>
+        {getLastChat() &&
+        (getLastChat().status === 'Pending' ||
+          getLastChat().status === 'Process') ? (
+          <Button
+            variant={ButtonVariant.BTN_36_SECONDARY}
+            width={'36px'}
+            height={'36px'}
+            onClick={abortRequest}
+          >
+            <Icon name={IconName.PAUSE} />
+          </Button>
+        ) : (
+          <Button
+            variant={ButtonVariant.BTN_36_SECONDARY}
+            width={'36px'}
+            height={'36px'}
+            disabled={!question || question === '<br>'}
+            onClick={handleSubmit}
+          >
+            <Icon name={IconName.ARROW_UP} />
+          </Button>
+        )}
       </div>
     </div>
   );

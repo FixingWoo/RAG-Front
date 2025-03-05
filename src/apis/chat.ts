@@ -1,58 +1,70 @@
 import { axiosClient } from '@/utils/axios-client';
-import { useChatStore } from '@/stores';
+import { useChatStore, useAbortControllerStore } from '@/stores';
 
 export const chat = async (question: string) => {
   const setChats = useChatStore.getState().setChats;
   const updateLastChats = useChatStore.getState().updateLastChats;
+  const setController = useAbortControllerStore.getState().setController;
 
-  // ✅ STEP1. API 호출
-  const response = await axiosClient.post(
-    `/v1/chat`,
-    { question },
-    {
-      responseType: 'stream',
-      adapter: 'fetch',
-      headers: {
-        Accept: 'text/event-stream',
-      },
-    }
-  );
+  const controller = new AbortController();
+  setController(controller);
 
-  // ✅ STEP2. 초기 AI 메시지 추가
-  setChats({ type: 'AI', status: 'Pending', text: '' });
+  try {
+    // ✅ STEP1. API 호출
+    const response = await axiosClient.post(
+      `/v1/chat`,
+      { question },
+      {
+        responseType: 'stream',
+        adapter: 'fetch',
+        headers: {
+          Accept: 'text/event-stream',
+        },
+        signal: controller.signal,
+      }
+    );
 
-  // ✅ STEP3. Stream 파싱
-  const reader = response.data.getReader();
-  const decoder = new TextDecoder();
-  let streamBuffer = '';
+    // ✅ STEP2. 초기 AI 메시지 추가
+    setChats({ type: 'AI', status: 'Pending', text: '' });
 
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) {
-      updateLastChats('', 'Done');
-      break;
-    }
-
-    const chunk = decoder.decode(value, { stream: true });
-    streamBuffer += chunk;
-
-    let startIdx = 0;
+    // ✅ STEP3. Stream 파싱
+    const reader = response.data.getReader();
+    const decoder = new TextDecoder();
+    let streamBuffer = '';
 
     while (true) {
-      const endIdx = streamBuffer.indexOf('}', startIdx);
-      if (endIdx === -1) break;
-
-      const jsonStr = streamBuffer.slice(startIdx, endIdx + 1);
-      try {
-        const row = JSON.parse(jsonStr);
-        updateLastChats(row['answer'], 'Process');
-      } catch (error) {
-        console.error('JSON parsing error:', error);
+      const { done, value } = await reader.read();
+      if (done) {
+        updateLastChats('', 'Done');
+        break;
       }
 
-      startIdx = endIdx + 1;
-    }
+      const chunk = decoder.decode(value, { stream: true });
+      streamBuffer += chunk;
 
-    streamBuffer = streamBuffer.slice(startIdx);
+      let startIdx = 0;
+
+      while (true) {
+        const endIdx = streamBuffer.indexOf('}', startIdx);
+        if (endIdx === -1) break;
+
+        const jsonStr = streamBuffer.slice(startIdx, endIdx + 1);
+        try {
+          const row = JSON.parse(jsonStr);
+          updateLastChats(row['answer'], 'Process');
+        } catch (error) {
+          console.error('JSON parsing error:', error);
+        }
+
+        startIdx = endIdx + 1;
+      }
+
+      streamBuffer = streamBuffer.slice(startIdx);
+    }
+  } catch (e) {
+    // ✅ STEP4. 중단 처리
+    if (e instanceof DOMException && e.name === 'AbortError') {
+      updateLastChats('', 'Cancel');
+    }
   }
 };
