@@ -12,18 +12,26 @@ import { useChatStore } from '@/stores';
 import { chat } from '@/apis';
 
 const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
-  const { question, setQuestion, setChats, clearChats } = useChatStore();
+  const { question, setQuestion, setChats, clearChats, getLastChat } =
+    useChatStore();
 
   const handleChange = (e: ContentEditableEvent) => {
     setQuestion(e.target.value);
   };
 
   const handleSubmit = async () => {
-    if (!question) return;
+    const question = useChatStore.getState().question;
+    if (
+      !question ||
+      (getLastChat() &&
+        (getLastChat().status === 'Pending' ||
+          getLastChat().status === 'Process'))
+    )
+      return;
 
     try {
-      setQuestion('');
       setChats({ type: 'User', text: question });
+      setQuestion('');
 
       await chat(question);
     } catch (e) {
@@ -34,18 +42,7 @@ const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
   const handleKeyDown = async (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
       e.preventDefault();
-
-      const question = useChatStore.getState().question;
-      if (!question) return;
-
-      try {
-        setChats({ type: 'User', text: question });
-        setQuestion('');
-
-        await chat(question);
-      } catch (e) {
-        console.log(e);
-      }
+      handleSubmit();
     }
   };
 
