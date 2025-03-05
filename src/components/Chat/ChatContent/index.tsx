@@ -18,13 +18,13 @@ const ChatContent: React.FC = () => {
         chat.type === 'User' ? (
           <UserMessage key={index} text={chat.text} />
         ) : (
-          <>
+          <React.Fragment key={index}>
             {chat.status === 'Pending' && <Loading />}
 
             {(chat.status === 'Process' || chat.status === 'Done') && (
-              <BotMessage key={index} text={chat.text} />
+              <BotMessage text={chat.text} />
             )}
-          </>
+          </React.Fragment>
         )
       )}
     </div>
