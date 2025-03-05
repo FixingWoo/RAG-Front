@@ -1,13 +1,16 @@
 @use '@/styles/typography' as Typography;
 @use '@/styles/colors' as Colors;
 
-.main {
+.container {
   position: relative;
-  max-width: 48rem;
   height: 100vh;
-  margin: 0 auto;
   background: Colors.$color-surface-white;
   border-radius: 20px;
+
+  .main {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
 
   .formWrapper {
     position: fixed;
