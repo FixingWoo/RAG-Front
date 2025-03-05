@@ -3,13 +3,19 @@ import styles from './style.module.scss';
 import cn from 'classnames';
 
 import ArrowUp from '@/assets/icons/ico-arrow-up.svg';
+import Copy from '@/assets/icons/ico-copy.svg';
+import Check from '@/assets/icons/ico-check.svg';
 
 export enum IconName {
   ARROW_UP = 'arrow-up',
+  COPY = 'copy',
+  CHECK = 'check',
 }
 
 const ICONS: { [key in IconName]: React.ReactNode } = {
   [IconName.ARROW_UP]: <ArrowUp />,
+  [IconName.COPY]: <Copy />,
+  [IconName.CHECK]: <Check />,
 };
 
 interface IIconProps extends HTMLAttributes<HTMLSpanElement> {
