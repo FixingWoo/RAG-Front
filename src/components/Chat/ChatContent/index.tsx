@@ -4,7 +4,7 @@ import React from 'react';
 import styles from './style.module.scss';
 
 import UserMessage from '@/components/Chat/UserMessage';
-import AiMessage from '@/components/Chat/AiMessage';
+import BotMessage from '@/components/Chat/BotMessage';
 
 import { useChatStore } from '@/stores';
 
@@ -17,7 +17,7 @@ const ChatContent: React.FC = () => {
         chat.type === 'User' ? (
           <UserMessage key={index} text={chat.text} />
         ) : (
-          <AiMessage key={index} text={chat.text} />
+          <BotMessage key={index} text={chat.text} />
         )
       )}
     </div>
