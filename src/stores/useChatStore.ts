@@ -6,9 +6,11 @@ const intialState = {
   chats: [],
 };
 
+type Status = 'Pending' | 'Process' | 'Done' | 'Fail' | 'Cancel';
+
 interface IChat {
   type: 'AI' | 'User';
-  status?: 'Pending' | 'Process' | 'Done' | 'Fail' | 'Cancel';
+  status?: Status;
   text: string;
 }
 
@@ -16,14 +18,23 @@ interface IChatStore {
   question: string;
   chats: IChat[];
 
+  getLastChat: () => IChat;
+
   setChats: (chat: IChat) => void;
   setQuestion: (question: string) => void;
-  updateChats: (chunk: string) => void;
+  updateLastChats: (chunk: string, status: Status) => void;
   clearChats: () => void;
 }
 
 export const useChatStore = create<IChatStore>((set, get) => ({
   ...intialState,
+
+  getLastChat: () => {
+    const currentChats = get().chats;
+    const lastChat = currentChats[currentChats.length - 1];
+
+    return lastChat;
+  },
 
   setQuestion: (question: string) => {
     set({ question });
@@ -32,7 +43,7 @@ export const useChatStore = create<IChatStore>((set, get) => ({
     const currentChats = get().chats;
     set({ chats: [...currentChats, chat] });
   },
-  updateChats: (chunk: string) => {
+  updateLastChats: (chunk: string, status: Status) => {
     set((state) => {
       if (state.chats.length === 0) return state;
 
@@ -41,6 +52,7 @@ export const useChatStore = create<IChatStore>((set, get) => ({
 
       if (lastChat.type === 'AI') {
         lastChat.text += chunk;
+        lastChat.status = status;
       }
 
       return { chats: updatedChats };
