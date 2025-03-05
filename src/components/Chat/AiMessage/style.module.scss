@@ -3,12 +3,41 @@
 
 .container {
   display: flex;
+  flex-direction: column;
   padding: 1.25rem 0;
 
-  .wrapper {
-    padding: 0.625rem 1.25rem;
+  .textWrapper {
+    // padding: 0.625rem 1.25rem;
     line-height: 1.5rem;
     white-space: pre-wrap;
     word-wrap: break-word;
+  }
+
+  .buttonWrapper {
+    margin-left: -0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.25rem;
+    gap: 0.75rem;
+
+    .button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      border-radius: 0.5rem;
+
+      &:hover {
+        background: Colors.$color-surface-gray-100;
+      }
+
+      svg {
+        transform: scale(0.8);
+        transform-origin: center;
+      }
+    }
   }
 }
