@@ -61,10 +61,18 @@ export const chat = async (question: string) => {
 
       streamBuffer = streamBuffer.slice(startIdx);
     }
-  } catch (e) {
-    // ✅ STEP4. 중단 처리
+  } catch (e: unknown) {
+    // ✅ STEP4. 예외 처리
+
     if (e instanceof DOMException && e.name === 'AbortError') {
-      updateLastChats('', 'Cancel');
+      // AbortError인 경우
+      updateLastChats('중단 되었습니다.', 'Pause');
+    } else if (e instanceof Error) {
+      // 일반적인 Error 객체인 경우
+      updateLastChats(e.message, 'Error');
+    } else {
+      // 예상치 못한 오류인 경우
+      updateLastChats('An unknown error occurred', 'Error');
     }
   }
 };

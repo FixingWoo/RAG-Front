@@ -6,7 +6,7 @@ const intialState = {
   chats: [],
 };
 
-type Status = 'Pending' | 'Process' | 'Done' | 'Fail' | 'Cancel';
+type Status = 'Pending' | 'Process' | 'Done' | 'Error' | 'Pause';
 
 interface IChat {
   type: 'AI' | 'User';

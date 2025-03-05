@@ -19,13 +19,14 @@ const ChatContent: React.FC = () => {
           <UserMessage key={index} text={chat.text} />
         ) : (
           <React.Fragment key={index}>
-            {chat.status === 'Cancel' && <p>중단되었습니다.</p>}
-
             {chat.status === 'Pending' && <Loading />}
 
             {(chat.status === 'Process' || chat.status === 'Done') && (
               <BotMessage text={chat.text} />
             )}
+
+            {chat.status === 'Error' && <p>{chat.text}</p>}
+            {chat.status === 'Pause' && <p>중단되었습니다.</p>}
           </React.Fragment>
         )
       )}
