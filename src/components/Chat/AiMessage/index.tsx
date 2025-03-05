@@ -37,8 +37,12 @@ const AiMessage: React.FC<IProps> = ({ text }) => {
       </div>
       <div className={styles.buttonWrapper}>
         {isCopied ? (
-          <Button className={styles.button} variant={ButtonVariant.CUSTOM}>
-            <Icon name={IconName.CHECK} size={30} />
+          <Button
+            className={styles.button}
+            variant={ButtonVariant.CUSTOM}
+            size={'30px'}
+          >
+            <Icon name={IconName.CHECK} />
           </Button>
         ) : (
           <Button
@@ -47,8 +51,9 @@ const AiMessage: React.FC<IProps> = ({ text }) => {
             }}
             className={styles.button}
             variant={ButtonVariant.CUSTOM}
+            size={'30px'}
           >
-            <Icon name={IconName.COPY} size={30} />
+            <Icon name={IconName.COPY} />
           </Button>
         )}
       </div>
