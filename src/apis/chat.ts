@@ -10,7 +10,10 @@ export const chat = async (question: string) => {
   setController(controller);
 
   try {
-    // ✅ STEP1. API 호출
+    // ✅ STEP1. 초기 AI 메시지 추가
+    setChats({ type: 'AI', status: 'Pending', text: '' });
+
+    // ✅ STEP2. API 호출
     const response = await axiosClient.post(
       `/v1/chat`,
       { question },
@@ -23,9 +26,6 @@ export const chat = async (question: string) => {
         signal: controller.signal,
       }
     );
-
-    // ✅ STEP2. 초기 AI 메시지 추가
-    setChats({ type: 'AI', status: 'Pending', text: '' });
 
     // ✅ STEP3. Stream 파싱
     const reader = response.data.getReader();
