@@ -13,7 +13,7 @@ import { chat } from '@/apis';
 
 const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
   const { abortRequest } = useAbortControllerStore();
-  const { question, setQuestion, setChats, clearChats, getLastChat } =
+  const { question, setQuestion, setChats, clearChats, getLastChatStauts } =
     useChatStore();
 
   const handleChange = (e: ContentEditableEvent) => {
@@ -24,9 +24,8 @@ const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
     const question = useChatStore.getState().question;
     if (
       !question ||
-      (getLastChat() &&
-        (getLastChat().status === 'Pending' ||
-          getLastChat().status === 'Process'))
+      getLastChatStauts() === 'Pending' ||
+      getLastChatStauts() === 'Process'
     )
       return;
 
@@ -68,9 +67,8 @@ const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
           초기화
         </Button>
 
-        {getLastChat() &&
-        (getLastChat().status === 'Pending' ||
-          getLastChat().status === 'Process') ? (
+        {getLastChatStauts() === 'Pending' ||
+        getLastChatStauts() === 'Process' ? (
           <Button
             variant={ButtonVariant.BTN_36_SECONDARY}
             width={'36px'}

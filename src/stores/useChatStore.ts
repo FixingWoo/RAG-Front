@@ -19,10 +19,13 @@ interface IChatStore {
   chats: IChat[];
 
   getLastChat: () => IChat;
+  getLastChatStauts: () => Status | undefined;
 
   setChats: (chat: IChat) => void;
   setQuestion: (question: string) => void;
+
   updateLastChats: (chunk: string, status: Status) => void;
+
   clearChats: () => void;
 }
 
@@ -35,6 +38,10 @@ export const useChatStore = create<IChatStore>((set, get) => ({
 
     return lastChat;
   },
+  getLastChatStauts: () => {
+    const lastChat = get().getLastChat();
+    return lastChat && lastChat.type === 'AI' ? lastChat.status : undefined;
+  },
 
   setQuestion: (question: string) => {
     set({ question });
@@ -43,6 +50,7 @@ export const useChatStore = create<IChatStore>((set, get) => ({
     const currentChats = get().chats;
     set({ chats: [...currentChats, chat] });
   },
+
   updateLastChats: (chunk: string, status: Status) => {
     set((state) => {
       if (state.chats.length === 0) return state;
@@ -58,6 +66,7 @@ export const useChatStore = create<IChatStore>((set, get) => ({
       return { chats: updatedChats };
     });
   },
+
   clearChats: () => {
     set({ chats: [] });
   },

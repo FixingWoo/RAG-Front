@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const BotMessage: React.FC<IProps> = ({ text }) => {
-  const { getLastChat } = useChatStore();
+  const { getLastChatStauts } = useChatStore();
   const [isCopied, toggle] = useToggleWithDelay(false, 2000);
 
   const handleDragCopy = (e: React.ClipboardEvent) => {
@@ -38,7 +38,7 @@ const BotMessage: React.FC<IProps> = ({ text }) => {
         <MarkdownView text={text} />
       </div>
 
-      {getLastChat() && getLastChat().status === 'Done' && (
+      {getLastChatStauts() === 'Done' && (
         <div className={styles.buttonWrapper}>
           {isCopied ? (
             <Button
