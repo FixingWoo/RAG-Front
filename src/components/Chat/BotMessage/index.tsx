@@ -17,6 +17,7 @@ interface IProps {
 const BotMessage: React.FC<IProps> = ({ text, index }) => {
   const { getLastChatStauts, getChatsLength } = useChatStore();
   const [isCopied, toggle] = useToggleWithDelay(false, 2000);
+  const chatsLength = getChatsLength();
 
   const handleDragCopy = (e: React.ClipboardEvent) => {
     e.preventDefault();
@@ -42,7 +43,7 @@ const BotMessage: React.FC<IProps> = ({ text, index }) => {
       {getLastChatStauts() === 'Done' && (
         <div
           className={`${styles.buttonWrapper} 
-          ${index === getChatsLength() - 1 ? '' : styles.none}`}
+          ${index === chatsLength - 1 ? '' : styles.none}`}
         >
           {isCopied ? (
             <Button

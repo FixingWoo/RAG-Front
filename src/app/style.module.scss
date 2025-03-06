@@ -14,10 +14,22 @@
 
   .formWrapper {
     position: fixed;
+    bottom: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     min-width: 45rem;
     margin: 0 auto;
-    bottom: 0;
     background: Colors.$white;
+
+    &.updatedState {
+      bottom: 0;
+    }
+
+    h2 {
+      @include Typography.xlg-semi;
+      margin-bottom: 1.75rem;
+    }
 
     .notice {
       @include Typography.xs-regular;

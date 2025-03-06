@@ -11,7 +11,8 @@ import { useChatStore } from '@/stores';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { chats } = useChatStore();
+  const { getChatsLength, chats } = useChatStore();
+  const chatsLength = getChatsLength();
 
   useEffect(() => {
     document.body.scrollTop = document.body.scrollHeight;
@@ -24,7 +25,12 @@ export default function Home() {
       <div className={styles.container} ref={containerRef}>
         <div className={styles.main}>
           <ChatContent />
-          <div className={styles.formWrapper}>
+          <div
+            className={`${styles.formWrapper} ${
+              chatsLength ? styles.updatedState : ''
+            } `}
+          >
+            {!chatsLength && <h2>무엇을 도와드릴까요?</h2>}
             <ChatForm />
             <div className={styles.notice}>
               챗봇은 실수를 할 수 있습니다. 중요한 정보를 확인하세요.

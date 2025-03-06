@@ -2,6 +2,7 @@ $typography-size-map: (
   'xs': 0.75rem,
   'sm': 0.875rem,
   'lg': 1.25rem,
+  'xlg': 1.875rem,
 );
 
 @mixin Typography(
@@ -47,4 +48,8 @@ $typography-size-map: (
 
 @mixin lg-semi {
   @include Typography-kr('lg', 600, 1.75rem, 0, left);
+}
+
+@mixin xlg-semi {
+  @include Typography-kr('xlg', 600, 2.25rem, 0, left);
 }
