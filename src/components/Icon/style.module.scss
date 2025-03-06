@@ -9,6 +9,7 @@
     path,
     circle {
       stroke: var(--icon-stroke-color);
+      stroke-width: var(--icon-stroke-width, 1);
     }
   }
 
