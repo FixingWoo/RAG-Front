@@ -40,33 +40,32 @@ const BotMessage: React.FC<IProps> = ({ text, index }) => {
         <MarkdownView text={text} />
       </div>
 
-      {getLastChatStauts() === 'Done' && (
-        <div
-          className={`${styles.buttonWrapper} 
-          ${index === chatsLength - 1 ? '' : styles.none}`}
-        >
-          {isCopied ? (
-            <Button
-              className={styles.button}
-              variant={ButtonVariant.CUSTOM}
-              size={'24px'}
-            >
-              <Icon name={IconName.CHECK} />
-            </Button>
-          ) : (
-            <Button
-              onClick={() => {
-                handleClickCopy(text);
-              }}
-              className={styles.button}
-              variant={ButtonVariant.CUSTOM}
-              size={'24px'}
-            >
-              <Icon name={IconName.COPY} />
-            </Button>
-          )}
-        </div>
-      )}
+      <div
+        className={`${styles.buttonWrapper} 
+          ${index === chatsLength - 1 ? '' : styles.none} 
+          ${getLastChatStauts() === 'Done' ? '' : styles.none}`}
+      >
+        {isCopied ? (
+          <Button
+            className={styles.button}
+            variant={ButtonVariant.CUSTOM}
+            size={'24px'}
+          >
+            <Icon name={IconName.CHECK} />
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              handleClickCopy(text);
+            }}
+            className={styles.button}
+            variant={ButtonVariant.CUSTOM}
+            size={'24px'}
+          >
+            <Icon name={IconName.COPY} />
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
