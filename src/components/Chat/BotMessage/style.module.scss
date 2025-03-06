@@ -7,14 +7,14 @@
   padding: 1.25rem 0;
 
   .textWrapper {
-    line-height: 1.5rem;
-    white-space: pre-wrap;
+    line-height: 3rem;
     word-wrap: break-word;
 
     p {
       color: Colors.$font-black;
-      line-height: 1.75rem;
+      line-height: 3rem;
       margin-bottom: 0.5rem;
+      word-break: keep-all;
     }
   }
 
