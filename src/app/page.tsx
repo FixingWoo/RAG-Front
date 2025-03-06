@@ -19,9 +19,9 @@ export default function Home() {
 
   return (
     <>
-      <div className={styles.container} ref={containerRef}>
-        <ChatHeader />
+      <ChatHeader />
 
+      <div className={styles.container} ref={containerRef}>
         <div className={styles.main}>
           <ChatContent />
           <div className={styles.formWrapper}>

@@ -3,7 +3,7 @@
 
 .container {
   position: relative;
-  height: 100vh;
+  height: calc(100vh - 4.5rem);
   background: Colors.$white;
   border-radius: 20px;
 
