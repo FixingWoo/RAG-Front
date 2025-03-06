@@ -1,0 +1,22 @@
+@use '@/styles/typography' as Typography;
+@use '@/styles/colors' as Colors;
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid Colors.$border-error;
+  border-radius: 1rem;
+  background: Colors.$surface-error;
+  width: fit-content;
+
+  &.multiLine {
+    align-items: flex-start;
+  }
+
+  p {
+    @include Typography.sm-regular;
+    color: Colors.$font-error;
+  }
+}

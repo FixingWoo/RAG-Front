@@ -5,6 +5,7 @@ import styles from './style.module.scss';
 
 import UserMessage from '@/components/Chat/UserMessage';
 import BotMessage from '@/components/Chat/BotMessage';
+import ErrorMessage from '@/components/Chat/ErrorMessage';
 import Loading from '@/components/Loading';
 
 import { useChatStore } from '@/stores';
@@ -25,8 +26,9 @@ const ChatContent: React.FC = () => {
               <BotMessage text={chat.text} />
             )}
 
-            {chat.status === 'Error' && <p>{chat.text}</p>}
-            {chat.status === 'Pause' && <p>중단되었습니다.</p>}
+            {(chat.status === 'Error' || chat.status === 'Pause') && (
+              <ErrorMessage text={chat.text} />
+            )}
           </React.Fragment>
         )
       )}

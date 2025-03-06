@@ -66,7 +66,7 @@ export const chat = async (question: string) => {
 
     if (e instanceof DOMException && e.name === 'AbortError') {
       // AbortError인 경우
-      updateLastChats('중단 되었습니다.', 'Pause');
+      updateLastChats('작업이 중단 되었습니다.', 'Pause');
     } else if (e instanceof Error) {
       // 일반적인 Error 객체인 경우
       updateLastChats(e.message, 'Error');
