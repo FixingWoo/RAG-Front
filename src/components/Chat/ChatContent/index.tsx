@@ -23,7 +23,7 @@ const ChatContent: React.FC = () => {
             {chat.status === 'Pending' && <Loading />}
 
             {(chat.status === 'Process' || chat.status === 'Done') && (
-              <BotMessage text={chat.text} />
+              <BotMessage text={chat.text} index={index} />
             )}
 
             {(chat.status === 'Error' || chat.status === 'Pause') && (

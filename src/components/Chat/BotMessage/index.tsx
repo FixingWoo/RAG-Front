@@ -11,10 +11,11 @@ import { copyClipboard } from '@/utils';
 
 interface IProps {
   text: string;
+  index: number;
 }
 
-const BotMessage: React.FC<IProps> = ({ text }) => {
-  const { getLastChatStauts } = useChatStore();
+const BotMessage: React.FC<IProps> = ({ text, index }) => {
+  const { getLastChatStauts, getChatsLength } = useChatStore();
   const [isCopied, toggle] = useToggleWithDelay(false, 2000);
 
   const handleDragCopy = (e: React.ClipboardEvent) => {
@@ -39,12 +40,15 @@ const BotMessage: React.FC<IProps> = ({ text }) => {
       </div>
 
       {getLastChatStauts() === 'Done' && (
-        <div className={styles.buttonWrapper}>
+        <div
+          className={`${styles.buttonWrapper} 
+          ${index === getChatsLength() - 1 ? '' : styles.none}`}
+        >
           {isCopied ? (
             <Button
               className={styles.button}
               variant={ButtonVariant.CUSTOM}
-              size={'30px'}
+              size={'24px'}
             >
               <Icon name={IconName.CHECK} />
             </Button>
@@ -55,7 +59,7 @@ const BotMessage: React.FC<IProps> = ({ text }) => {
               }}
               className={styles.button}
               variant={ButtonVariant.CUSTOM}
-              size={'30px'}
+              size={'24px'}
             >
               <Icon name={IconName.COPY} />
             </Button>

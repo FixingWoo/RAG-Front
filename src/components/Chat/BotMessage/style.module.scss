@@ -18,12 +18,22 @@
     }
   }
 
+  &:hover {
+    .buttonWrapper.none {
+      opacity: 1;
+    }
+  }
+
   .buttonWrapper {
     margin-left: -0.5rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 0.5rem 0.25rem;
+    padding: 0 0.25rem;
+
+    &.none {
+      opacity: 0;
+    }
 
     .button {
       width: 30px;

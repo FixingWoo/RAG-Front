@@ -18,6 +18,7 @@ interface IChatStore {
   question: string;
   chats: IChat[];
 
+  getChatsLength: () => number;
   getLastChat: () => IChat;
   getLastChatStauts: () => Status | undefined;
 
@@ -32,6 +33,9 @@ interface IChatStore {
 export const useChatStore = create<IChatStore>((set, get) => ({
   ...intialState,
 
+  getChatsLength: () => {
+    return get().chats.length;
+  },
   getLastChat: () => {
     const currentChats = get().chats;
     const lastChat = currentChats[currentChats.length - 1];
