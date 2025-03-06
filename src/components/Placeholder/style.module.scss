@@ -9,7 +9,7 @@
   user-select: none;
 
   &:empty::before {
-    color: Colors.$color-font-gray-400;
+    color: Colors.$font-gray-400;
     content: attr(data-placeholder);
     cursor: text;
     pointer-events: none;

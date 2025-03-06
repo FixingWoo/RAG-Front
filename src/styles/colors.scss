@@ -1,33 +1,23 @@
-// Font
-$color-font-white: #fff;
-$color-font-gray-100: #f2f4f6;
-$color-font-gray-300: #c3c8cc;
-$color-font-gray-400: #b4b4b4;
-$color-font-gray-500: #a7a7a7;
-$color-font-gray-700: #5d5d5d;
-$color-font-gray-900: #191f28;
-$color-font-black: #0d0d0d;
+// 공통
+$white: #fff;
 
-$link: #2964aa;
+// Font
+$font-gray-400: #b4b4b4;
+$font-gray-500: #a7a7a7;
+$font-gray-700: #5d5d5d;
+$font-black: #0d0d0d;
+
+$font-link: #2964aa;
+$font-error: #f93a37;
 
 // Border
-$color-border-white: #e5e8eb;
-$color-border-gray-100: #f2f4f6;
-$color-border-gray-200: #e5e8eb;
-$color-border-gray-400: #b0b8c1;
-$color-border-gray-500: #8b95a1;
-$color-border-gray-700: #4e5968;
-$color-border-gray-c4: #c4c4c4;
-
-$color-border-light: rgba(0, 0, 0, 0.1);
+$border-light: rgba(0, 0, 0, 0.1);
+$border-error: #ffdbd9;
 
 // Surface
-$color-surface-white: #fff;
-$color-surface-green-50: #f0faf6;
-$color-surface-gray-100: #f2f4f6;
-$color-surface-gray-200: #e5e8eb;
-$color-surface-gray-300: #e8e8e8;
-$color-surface-gray-400: #f5f5f5;
-$color-surface-gray-500: #b0b8c1;
-$color-surface-gray-800: #333d4b;
-$color-surface-black: #000000;
+$surface-gray-100: #f2f4f6;
+$surface-gray-500: #b0b8c1;
+$surface-gray-800: #333d4b;
+$surface-black: #000000;
+
+$surface-error: #fff5f5;

@@ -7,13 +7,12 @@
   padding: 1.25rem 0;
 
   .textWrapper {
-    // padding: 0.625rem 1.25rem;
     line-height: 1.5rem;
     white-space: pre-wrap;
     word-wrap: break-word;
 
     p {
-      color: Colors.$color-font-black;
+      color: Colors.$font-black;
       line-height: 1.75rem;
       margin-bottom: 0.5rem;
     }
@@ -38,7 +37,7 @@
       border-radius: 0.5rem;
 
       &:hover {
-        background: Colors.$color-surface-gray-100;
+        background: Colors.$surface-gray-100;
       }
 
       svg {
