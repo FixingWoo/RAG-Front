@@ -1,0 +1,58 @@
+@use '@/styles/typography' as Typography;
+@use '@/styles/colors' as Colors;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 0;
+
+  .textWrapper {
+    line-height: 1.5rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    p {
+      color: Colors.$font-black;
+      line-height: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &:hover {
+    .buttonWrapper.none {
+      opacity: 1;
+    }
+  }
+
+  .buttonWrapper {
+    margin-left: -0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 0.25rem;
+
+    &.none {
+      opacity: 0;
+    }
+
+    .button {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      border-radius: 0.5rem;
+
+      &:hover {
+        background: Colors.$surface-gray-100;
+      }
+
+      svg {
+        transform: scale(0.8);
+      }
+    }
+  }
+}

@@ -1,24 +1,39 @@
 @use '@/styles/typography' as Typography;
 @use '@/styles/colors' as Colors;
 
-.main {
+.container {
   position: relative;
-  max-width: 48rem;
-  height: 100vh;
-  margin: 0 auto;
-  background: Colors.$color-surface-white;
+  height: calc(100vh - 4.5rem);
+  background: Colors.$white;
   border-radius: 20px;
+
+  .main {
+    max-width: 45rem;
+    margin: 0 auto;
+  }
 
   .formWrapper {
     position: fixed;
-    min-width: 48rem;
+    bottom: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 45rem;
     margin: 0 auto;
-    bottom: 0;
-    background: Colors.$color-surface-white;
+    background: Colors.$white;
+
+    &.updatedState {
+      bottom: 0;
+    }
+
+    h2 {
+      @include Typography.xlg-semi;
+      margin-bottom: 1.75rem;
+    }
 
     .notice {
       @include Typography.xs-regular;
-      color: Colors.$color-font-gray-500;
+      color: Colors.$font-gray-500;
       padding: 0.5rem 60px;
       text-align: center;
     }

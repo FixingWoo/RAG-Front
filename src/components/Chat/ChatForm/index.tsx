@@ -8,31 +8,41 @@ import Icon, { IconName } from '@/components/Icon';
 import VisuallyHidden from '@/components/VisuallyHidden';
 import Placeholder from '@/components/Placeholder';
 
-import { useChatStore } from '@/stores';
+import { useChatStore, useAbortControllerStore } from '@/stores';
+import { chat } from '@/apis';
 
 const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
-  const { question, setQuestion, setChats, clearChats } = useChatStore();
+  const { abortRequest } = useAbortControllerStore();
+  const { question, setQuestion, setChats, clearChats, getLastChatStauts } =
+    useChatStore();
 
   const handleChange = (e: ContentEditableEvent) => {
     setQuestion(e.target.value);
   };
 
-  const handleSubmit = () => {
-    if (!question) return;
+  const handleSubmit = async () => {
+    const question = useChatStore.getState().question;
+    if (
+      !question ||
+      getLastChatStauts() === 'Pending' ||
+      getLastChatStauts() === 'Process'
+    )
+      return;
 
-    setChats({ type: 'User', text: question });
-    setQuestion('');
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
-      const question = useChatStore.getState().question;
-
-      e.preventDefault();
-      if (!question) return;
-
+    try {
       setChats({ type: 'User', text: question });
       setQuestion('');
+
+      await chat(question);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleKeyDown = async (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+      e.preventDefault();
+      handleSubmit();
     }
   };
 
@@ -57,15 +67,27 @@ const ChatForm = React.forwardRef<HTMLTextAreaElement>(({}, ref) => {
           초기화
         </Button>
 
-        <Button
-          variant={ButtonVariant.BTN_36_SECONDARY}
-          width={'36px'}
-          height={'36px'}
-          disabled={!question || question === '<br>'}
-          onClick={handleSubmit}
-        >
-          <Icon name={IconName.ARROW_UP} />
-        </Button>
+        {getLastChatStauts() === 'Pending' ||
+        getLastChatStauts() === 'Process' ? (
+          <Button
+            variant={ButtonVariant.BTN_36_SECONDARY}
+            width={'36px'}
+            height={'36px'}
+            onClick={abortRequest}
+          >
+            <Icon name={IconName.PAUSE} />
+          </Button>
+        ) : (
+          <Button
+            variant={ButtonVariant.BTN_36_SECONDARY}
+            width={'36px'}
+            height={'36px'}
+            disabled={!question || question === '<br>'}
+            onClick={handleSubmit}
+          >
+            <Icon name={IconName.ARROW_UP} />
+          </Button>
+        )}
       </div>
     </div>
   );

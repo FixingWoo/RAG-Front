@@ -19,25 +19,25 @@
   }
 
   @mixin ButtonPrimary {
-    border: 1px solid Colors.$color-border-light;
-    color: Colors.$color-font-gray-700;
-    background: Colors.$color-surface-white;
+    border: 1px solid Colors.$border-light;
+    color: Colors.$font-gray-700;
+    background: Colors.$white;
 
     &:hover {
-      background: Colors.$color-surface-gray-100;
+      background: Colors.$surface-gray-100;
     }
   }
 
   @mixin ButtonSecondary {
-    color: Colors.$color-font-white;
-    background: Colors.$color-surface-black;
+    color: Colors.$white;
+    background: Colors.$surface-black;
 
     &:hover {
-      background: Colors.$color-surface-gray-800;
+      background: Colors.$surface-gray-800;
     }
 
     &:disabled {
-      background: Colors.$color-surface-gray-500;
+      background: Colors.$surface-gray-500;
     }
   }
 

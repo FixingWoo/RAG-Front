@@ -3,13 +3,17 @@
 
 .placeholder {
   position: absolute;
-  left: 20px;
-  top: 18px;
+  left: 1.25rem;
+  top: 5.125rem;
   pointer-events: none;
   user-select: none;
 
+  &.updatedState {
+    top: 1.125rem;
+  }
+
   &:empty::before {
-    color: Colors.$color-font-gray-400;
+    color: Colors.$font-gray-400;
     content: attr(data-placeholder);
     cursor: text;
     pointer-events: none;
