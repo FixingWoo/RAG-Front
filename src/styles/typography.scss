@@ -1,6 +1,9 @@
+@use 'sass:map';
+
 $typography-size-map: (
   'xs': 0.75rem,
   'sm': 0.875rem,
+  'm': 1rem,
   'lg': 1.25rem,
   'xlg': 1.875rem,
 );
@@ -14,7 +17,7 @@ $typography-size-map: (
   $text-align
 ) {
   font-family: $font-family;
-  font-size: map-get($typography-size-map, $size);
+  font-size: map.get($typography-size-map, $size);
   font-weight: $weight;
   line-height: $line-height;
   letter-spacing: $letter-spacing;
@@ -44,6 +47,10 @@ $typography-size-map: (
 
 @mixin sm-regular {
   @include Typography-kr('sm', 400, 1.25rem, 0, left);
+}
+
+@mixin m-regular {
+  @include Typography-kr('m', 400, 1.25rem, 0, left);
 }
 
 @mixin lg-semi {
