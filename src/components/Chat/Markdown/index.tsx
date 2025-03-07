@@ -14,16 +14,15 @@ interface IProps {
 }
 
 const defaultComponents: { [key: string]: React.FC<any> } = {
-  del: ({
-    node,
-    children,
-    ...props
-  }: {
-    node: any;
-    children: React.ReactNode;
-    [key: string]: any;
-  }) => {
+  del: ({ children }: { children: React.ReactNode; [key: string]: any }) => {
     return <span>{children}</span>;
+  },
+  a: ({ children, ...props }: React.ComponentProps<'a'>) => {
+    return (
+      <a {...props} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    );
   },
   // 다른 기본 커스터마이징된 컴포넌트 추가 가능
 };
