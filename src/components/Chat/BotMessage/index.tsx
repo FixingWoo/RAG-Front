@@ -19,23 +19,13 @@ const BotMessage: React.FC<IProps> = ({ text, index }) => {
   const [isCopied, toggle] = useToggleWithDelay(false, 2000);
   const chatsLength = getChatsLength();
 
-  const handleDragCopy = (e: React.ClipboardEvent) => {
-    e.preventDefault();
-
-    const selection = window.getSelection();
-    if (!selection) return;
-
-    const selectedText = selection.toString();
-    navigator.clipboard.writeText(selectedText);
-  };
-
   const handleClickCopy = (text: string) => {
     copyClipboard(text);
     toggle();
   };
 
   return (
-    <div className={styles.container} onCopy={handleDragCopy}>
+    <div className={styles.container}>
       <div className={styles.textWrapper}>
         <MarkdownView text={text} />
       </div>
